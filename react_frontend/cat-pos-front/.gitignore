@@ -25,5 +25,5 @@ yarn-error.log*
 venv
 __pycache__
 
-flask_backend/__pycache__
+flask_backend/__pycache__/
 flask_backend/venv
