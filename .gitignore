@@ -2,4 +2,4 @@ azurekey.txt
 bubblesloaf.jpg
 models
 venv
-__pycache__
+__pycache__/
