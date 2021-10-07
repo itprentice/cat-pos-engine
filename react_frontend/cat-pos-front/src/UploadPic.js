@@ -4,20 +4,32 @@ const UploadPic = () => {
     const [image, setImage] = useState(placeholder);
     const [uploadFlag, setUpFlag] = useState(false);
     const [ifCat, setIfCat] = useState(false);
+    const [position, setPosition] = useState('');
+    const [confidence, setConfidence] = useState(0);
 
     const checkIfCat = (imgFile) => {
         console.log("gotta make this part of the pipeline :)");
         return true;
     }
     const callCatEngine = (img) => {
-
+        const data = new FormData();
+        data.append('catImage', img);
+        fetch("/upload", {
+            method: 'POST',
+            body: data,
+        }).then((response) => {
+            response.text().then((text) => {
+                setPosition(text);
+            });
+        });
     }
     const handleUpload = (e) => {
         const cFiles = e.target.files;
-        if(cFiles.size !== 0){
+        if(cFiles.length > 0){
             displayPic(cFiles[0]); //sends most recent file to be displayed by the function
             setUpFlag(true);
             setIfCat(checkIfCat(cFiles[0])); //sends most recently uploaded file to be checked if its a cat
+            callCatEngine(cFiles[0]);
         }
         // e.target.submit();
     }
@@ -42,12 +54,14 @@ const UploadPic = () => {
 
                     {/* <div className="rowBreak"></div> */}
                 </label>
-                <input type="file" id="upload-pic" onChange={handleUpload}/>
-                {/* TODO: add a custom upload file button so that it takes up the same amount of space as the pciture will */}
+                <input type="file" accept="image/*" id="upload-pic" onChange={handleUpload}/>
+                
             </form>
-            <form action="">
+            {/* TODO: implement ifCat part of the pipeline so you can only find the cat position if the uploaded picture is of a cat */}
+            {/* <form action="">
                 {uploadFlag && <button>Find Cat Position</button>}
-            </form>
+            </form> */}
+            <h2>{position}</h2>
         </div>
     );
 }
