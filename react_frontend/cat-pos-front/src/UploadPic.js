@@ -2,16 +2,28 @@ import {useState} from "react";
 const UploadPic = () => {
     const placeholder = `${process.env.PUBLIC_URL}/images/uploadIcon.png`; //real path = public/images/uploadIcon.png
     const [image, setImage] = useState(placeholder);
+    const [uploadFlag, setUpFlag] = useState(false);
+    const [ifCat, setIfCat] = useState(false);
 
-    const displayPic = (e) => {
+    const checkIfCat = (imgFile) => {
+        console.log("gotta make this part of the pipeline :)");
+        return true;
+    }
+    const callCatEngine = (img) => {
+
+    }
+    const handleUpload = (e) => {
         const cFiles = e.target.files;
-        if (cFiles.size === 0){
-            setImage(placeholder);
+        if(cFiles.size !== 0){
+            displayPic(cFiles[0]); //sends most recent file to be displayed by the function
+            setUpFlag(true);
+            setIfCat(checkIfCat(cFiles[0])); //sends most recently uploaded file to be checked if its a cat
         }
-        else{
-            console.log(cFiles[0]);
-            setImage(URL.createObjectURL(cFiles[0]));
-        }
+        // e.target.submit();
+    }
+    const displayPic = (imgFile) => {
+        // console.log(cFiles[0]); 
+        setImage(URL.createObjectURL(imgFile));
     }
 
     return (  
@@ -24,13 +36,17 @@ const UploadPic = () => {
                     to be pushed to the bottom because of the :before pseudoelement I'm using to make the label element 1:1*/}
                     <div>
                         <img src={image} alt="Your uploaded file"/>
-                        <p>Upload Image Here</p>
+                        {!uploadFlag && (<p>Upload Image Here</p>)}
+                        {uploadFlag && (<p>Click Here to Upload a Different Image</p>)}
                     </div>
 
                     {/* <div className="rowBreak"></div> */}
                 </label>
-                <input type="file" id="upload-pic" onChange={displayPic}/>
+                <input type="file" id="upload-pic" onChange={handleUpload}/>
                 {/* TODO: add a custom upload file button so that it takes up the same amount of space as the pciture will */}
+            </form>
+            <form action="">
+                {uploadFlag && <button>Find Cat Position</button>}
             </form>
         </div>
     );

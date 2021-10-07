@@ -17,19 +17,22 @@
   color: aliceblue;
   background-color: mediumslateblue;
   border-radius: 10px;
+  /* in order to vertically center the p element between the heading and the upload area */
+  margin-bottom: 0; 
 }
 .launch p{
   font-size: 18px;
   /* border-radius: 10px;
   padding: 10px 10px;
   border: 2px solid white; */
-  margin: 80px 20px;
+  margin: 40px 20px;
 }
 
 /* UploadPic Styles */
 
 .upload form{
   max-width: 600px;
+  padding: 0 10px;
   margin: 0 auto;
 }
 .upload input{
@@ -59,11 +62,13 @@
 .upload img{
   /* display: block; */
   max-width: 100%;
-  max-height: 400px;
+  /* make the max height of the image 18px less than the max height of the label to account for the 18px text under the image */
+  max-height: 362px;
   height: auto;
   width: auto;
   padding: 0;
-  border-radius: 10%;
+  margin: 0;
+  border-radius: 30px;
 }
 
 .upload label div{
@@ -72,6 +77,6 @@
   margin-top: 10%;
   margin-bottom: 10%;
   /* making it so vertical pictures aren't too big */
-  max-height: 400px;
+  max-height: 380px;
   max-width: 80%;
 }
