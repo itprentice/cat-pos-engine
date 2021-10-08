@@ -20,5 +20,5 @@ def imageUpload():
     imageFile = request.files['catImage']
     img = Image.open(imageFile)
     prediction = catModel.predict(img)
-    return Response(prediction[0] + " " + str(prediction[2][prediction[1].item()].item()), mimetype="text/plain")
+    return Response(prediction[0] + "|" + str(prediction[2][prediction[1].item()].item()), mimetype="text/plain")
 

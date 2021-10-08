@@ -19,9 +19,9 @@ const UploadPic = () => {
             body: data,
         }).then((response) => {
             response.text().then((text) => {
-                const textArray = text.split();
+                const textArray = text.split("|");
                 setPosition(textArray[0]);
-                setConfidence(textArray[1]);
+                setConfidence(parseFloat(textArray[1]*100).toFixed(2));
             });
         });
     }
@@ -63,7 +63,7 @@ const UploadPic = () => {
             {/* <form action="">
                 {uploadFlag && <button>Find Cat Position</button>}
             </form> */}
-            {uploadFlag&&<h2>This cat is in a {position} resting position. The model is {Math.round(confidence*10000)/10000 * 100} % confident about this.</h2>}
+            {uploadFlag&&<h3>This cat is in a {position} resting position. The model is {confidence} % confident about this.</h3>}
         </div>
     );
 }
